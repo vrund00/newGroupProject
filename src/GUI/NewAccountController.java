@@ -118,12 +118,12 @@ public static Connection getConnection() throws SQLException{
 			ps.executeUpdate();
 			
 			String username = usernameTF.getText();
-			PreparedStatement create = con.prepareStatement("CREATE TABLE " + username  +" (ssn char(9), flightID varchar(5), "
+			PreparedStatement create = con.prepareStatement("CREATE TABLE " + username  +" (flightID varchar(5), "
 					+ "																FromCity varchar(10),"
 					+ "																FlightDate varchar(10), "
 					+ "																ToCity varchar(10), "
 					+ "																numPass varchar(30), "
-					+ "																primary key (ssn, flightID))");
+					+ "																primary key (flightID))");
 			 
 			create.executeUpdate();
 			
