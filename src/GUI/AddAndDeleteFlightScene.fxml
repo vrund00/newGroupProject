@@ -1,6 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" />
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.AddAndDeleteController">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#backToMainMenu" prefHeight="31.0" prefWidth="85.0" text="Main Menu" />
+            <Label alignment="CENTER" prefHeight="63.0" prefWidth="582.0" text="Available Flights" textAlignment="CENTER" underline="true">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <TableView fx:id="flightsTb" prefHeight="402.0" prefWidth="378.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="colFlightID" prefWidth="75.0" text="Flight ID" />
+          <TableColumn fx:id="colFromCity" prefWidth="75.0" text="From City" />
+            <TableColumn fx:id="colFlightDate" prefWidth="75.0" text="Flight Date" />
+            <TableColumn fx:id="colToCity" prefWidth="75.0" text="To City" />
+            <TableColumn fx:id="colNumPass" prefWidth="75.0" text="#Passengers" />
+        </columns>
+      </TableView>
+   </left>
+   <right>
+      <VBox prefHeight="402.0" prefWidth="311.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="246.0" text="Create or Update Flight" underline="true">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <SplitPane dividerPositions="0.2655038759689923" prefHeight="299.0" prefWidth="305.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="81.0">
+                     <children>
+                        <VBox prefHeight="302.0" prefWidth="80.0">
+                           <children>
+                              <Label prefHeight="25.0" prefWidth="114.0" text="Flight ID :" />
+                              <Label prefHeight="18.0" prefWidth="127.0" />
+                              <Label prefHeight="25.0" prefWidth="114.0" text="From City :" />
+                              <Label prefHeight="18.0" prefWidth="127.0" />
+                              <Label prefHeight="25.0" prefWidth="114.0" text="Flight Date :" />
+                              <Label prefHeight="18.0" prefWidth="127.0" />
+                              <Label alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="114.0" text="To City :" />
+                              <Label prefHeight="18.0" prefWidth="127.0" />
+                              <Label prefHeight="25.0" prefWidth="114.0" text="#Passengers :" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="197.0">
+                     <children>
+                        <VBox prefHeight="300.0" prefWidth="111.0">
+                           <children>
+                              <TextField fx:id="flightIDTF" />
+                              <Label prefHeight="18.0" prefWidth="127.0" />
+                              <TextField fx:id="fromCityTF" />
+                              <Label prefHeight="18.0" prefWidth="127.0" />
+                              <TextField fx:id="flightDateTF" />
+                              <Label prefHeight="0.0" prefWidth="122.0" />
+                              <TextField fx:id="toCityTF" />
+                              <Label prefHeight="0.0" prefWidth="122.0" />
+                              <TextField fx:id="numPassTF" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="116.0" prefHeight="298.0" prefWidth="109.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="110.0" text="Enter FlightID to Update!" textAlignment="CENTER" textFill="#ef0505" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold Italic" size="12.0" />
+                                 </font>
+                                 <effect>
+                                    <Glow />
+                                 </effect></Label>
+                              <Button fx:id="updateFromCity" mnemonicParsing="false" onAction="#updateFromCity" prefHeight="19.0" prefWidth="110.0" text="UPDATE" />
+                              <Label fx:id="fromCityStatus" alignment="CENTER" prefHeight="18.0" prefWidth="110.0" />
+                              <Button fx:id="updateFlightDate" mnemonicParsing="false" onAction="#updateFlightDate" prefHeight="19.0" prefWidth="110.0" text="UPDATE" />
+                              <Label fx:id="flightDateStatus" alignment="CENTER" prefHeight="18.0" prefWidth="110.0" />
+                              <Button fx:id="updateToCity" mnemonicParsing="false" onAction="#updateToCity" prefHeight="19.0" prefWidth="110.0" text="UPDATE" />
+                              <Label fx:id="toCityStatus" alignment="CENTER" prefHeight="18.0" prefWidth="110.0" />
+                              <Button fx:id="updateNumPass" mnemonicParsing="false" onAction="#updateNumPass" prefHeight="19.0" prefWidth="110.0" text="UPDATE" />
+                              <Label fx:id="numPassStatus" alignment="CENTER" prefHeight="18.0" prefWidth="110.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Button fx:id="addFlight" alignment="CENTER" contentDisplay="TEXT_ONLY" mnemonicParsing="false" onAction="#addFlight" prefWidth="119.0" text="ADD" />
+                <Button fx:id="refreshTable" alignment="CENTER" mnemonicParsing="false" onAction="#refreshTable" text="REFRESH" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+               <buttons>
+                  <Label fx:id="addRefreshStatus" alignment="CENTER" prefHeight="18.0" prefWidth="251.0" />
+               </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+   </right>
+   <bottom>
+      <AnchorPane prefHeight="98.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="deleteFlight" layoutX="451.0" layoutY="52.0" mnemonicParsing="false" onAction="#deleteFlight" prefHeight="26.0" prefWidth="123.0" text="DELETE" />
+            <Label alignment="CENTER_RIGHT" layoutX="150.0" layoutY="54.0" prefHeight="24.0" prefWidth="100.0" text="Flight ID --&gt; " />
+            <Label fx:id="deleteStatus" layoutX="586.0" layoutY="54.0" prefHeight="23.0" prefWidth="113.0" />
+            <TextField fx:id="deleteFlightTF" layoutX="275.0" layoutY="53.0" />
+            <Label alignment="CENTER" layoutX="227.0" layoutY="7.0" prefHeight="32.0" prefWidth="246.0" text="Delete Existing Flight" underline="true">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>
