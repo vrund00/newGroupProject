@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.searchFlightController">
+   <children>
+      <Label layoutX="174.0" layoutY="11.0" text="Availiable Flights">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="272.0" layoutY="146.0" mnemonicParsing="false" text="Search" />
+      <DatePicker fx:id="dateBox" layoutX="207.0" layoutY="96.0" />
+      <TableView fx:id="flightsTable" layoutX="107.0" layoutY="186.0" prefHeight="195.0" prefWidth="377.0">
+        <columns>
+          <TableColumn fx:id="flightID" prefWidth="75.0" text="flightID" />
+          <TableColumn fx:id="FromCity" prefWidth="75.0" text="FromCity" />
+            <TableColumn fx:id="FlightDate" prefWidth="75.0" text="FlightDate" />
+            <TableColumn fx:id="ToCity" prefWidth="75.0" text="ToCity" />
+            <TableColumn fx:id="numPass" prefWidth="75.0" text="numPass" />
+        </columns>
+      </TableView>
+      <Button fx:id="bookButton" layoutX="413.0" layoutY="425.0" mnemonicParsing="false" onAction="#bookFlight" text="Book" />
+      <Button fx:id="mainMenu" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#menu" text="Main Menu" />
+      <TextField fx:id="fromCityBox" layoutX="27.0" layoutY="96.0" promptText="From City" />
+      <TextField fx:id="toCityBox" layoutX="427.0" layoutY="96.0" promptText="To City" />
+      <Label layoutX="87.0" layoutY="69.0" text="From" />
+      <Label layoutX="281.0" layoutY="69.0" text="Date" />
+      <Label layoutX="492.0" layoutY="69.0" text="To" />
+      <TextField fx:id="bookBox" layoutX="220.0" layoutY="425.0" />
+      <Label layoutX="138.0" layoutY="429.0" text="FlightID:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="bookSuccess" layoutX="266.0" layoutY="458.0" />
+   </children>
+</AnchorPane>
