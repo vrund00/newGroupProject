@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 public class MainFlightController implements Initializable {
 	
 	@FXML
-    private TableColumn<UserFlightData, String> FlightDate_Col;
+    private TableColumn<UserFlightData, Integer> FlightDate_Col;
 
     @FXML
     private TableColumn<UserFlightData, String> FromCity_Col;
@@ -55,6 +55,12 @@ public class MainFlightController implements Initializable {
     
     @FXML
     private TextField flightID_Box;
+    
+    @FXML
+    Button editFlight_B;
+    
+    @FXML
+    Label adminLabel;
     
     ObservableList<UserFlightData> listU;
     
@@ -90,7 +96,7 @@ public class MainFlightController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		FlightDate_Col.setCellValueFactory(new PropertyValueFactory<UserFlightData, String>("FlightDate"));
+		FlightDate_Col.setCellValueFactory(new PropertyValueFactory<UserFlightData, Integer>("FlightDate"));
 		FromCity_Col.setCellValueFactory(new PropertyValueFactory<UserFlightData, String>("FromCity"));
 		ToCity_Col.setCellValueFactory(new PropertyValueFactory<UserFlightData, String>("ToCity"));
 		flightID_Col.setCellValueFactory(new PropertyValueFactory<UserFlightData, Integer>("flightID"));
@@ -108,7 +114,7 @@ public class MainFlightController implements Initializable {
 		DatabaseConnection connectNow = new DatabaseConnection();
 		Connection connectionDB = connectNow.getConnection();
 		
-		String sql = ("SELECT count(1) from " + user + " where flightID = " + userInput);
+		String sql = ("SELECT count(1) from " + user + " where flightID = " + flightID_Box.getText());
 		
 		
 		try {
@@ -117,7 +123,7 @@ public class MainFlightController implements Initializable {
 			
 			while (rs.next()) {
 				if (rs.getInt(1) == 1) {
-					PreparedStatement ps = connectionDB.prepareStatement("DELETE FROM " + user + " WHERE " + userInput);
+					PreparedStatement ps = connectionDB.prepareStatement("DELETE FROM " + user + " WHERE flightID = " + flightID_Box.getText());
 					ps.execute();
 					cancel_label.setText("Flight Canceled");
 				}
@@ -128,5 +134,35 @@ public class MainFlightController implements Initializable {
 			
 		}catch(Exception e) {e.printStackTrace();}
 	}
+	
+	public void editFlightScene() throws Exception{
+		
+		DatabaseConnection connectNow = new DatabaseConnection();
+		Connection connectionDB = connectNow.getConnection();
+		
+		String verifyLog = "SELECT username , admin from [dbo].[UserInfo] where username = '" + user + "'";
+
+		//try {
+			//Statement statement = connectionDB.createStatement();
+			//ResultSet rs = statement.executeQuery(verifyLog);
+			
+			//while (rs.next()) {
+				//if (rs.getString("admin") == "yes") {
+					//Parent root = FXMLLoader.load(getClass().getResource("AddAndDeleteFlightScene.fxml"));
+					//Stage window = (Stage)logout.getScene().getWindow();
+					//window.setScene(new Scene(root, 600, 600));
+					
+				//}
+				Parent root = FXMLLoader.load(getClass().getResource("AddAndDeleteFlightScene.fxml"));
+				Stage window = (Stage)logout.getScene().getWindow();
+				window.setScene(new Scene(root, 600, 600));
+			
+			}
+			
+			
+		
+	
+	//}catch(Exception e) {e.printStackTrace();}
+
 
 }
