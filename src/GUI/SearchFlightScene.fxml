@@ -16,9 +16,8 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="272.0" layoutY="146.0" mnemonicParsing="false" text="Search" />
-      <DatePicker fx:id="dateBox" layoutX="207.0" layoutY="96.0" />
-      <TableView fx:id="flightsTable" layoutX="107.0" layoutY="186.0" prefHeight="195.0" prefWidth="377.0">
+      <DatePicker fx:id="dateBox" editable="false" layoutX="350.0" layoutY="96.0" prefHeight="26.0" prefWidth="45.0" showWeekNumbers="true" />
+      <TableView fx:id="flightsTable" layoutX="105.0" layoutY="131.0" prefHeight="286.0" prefWidth="378.0">
         <columns>
           <TableColumn fx:id="flightID" prefWidth="75.0" text="flightID" />
           <TableColumn fx:id="FromCity" prefWidth="75.0" text="FromCity" />
@@ -41,5 +40,6 @@
          </font>
       </Label>
       <Label fx:id="bookSuccess" layoutX="266.0" layoutY="458.0" />
+      <TextField fx:id="dateField" layoutX="214.0" layoutY="96.0" />
    </children>
 </AnchorPane>
