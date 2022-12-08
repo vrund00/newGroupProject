@@ -34,5 +34,7 @@
       </Label>
       <TextField fx:id="flightID_Box" layoutX="281.0" layoutY="427.0" promptText="FlightID" />
       <Label fx:id="cancel_label" layoutX="337.0" layoutY="461.0" />
+      <Button fx:id="editFlight_B" layoutX="489.0" layoutY="37.0" mnemonicParsing="false" onAction="#editFlightScene" text="Edit Flights" />
+      <Label fx:id="adminLabel" layoutX="513.0" layoutY="71.0" />
    </children>
 </AnchorPane>
