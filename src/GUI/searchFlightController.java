@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -70,18 +72,24 @@ public class searchFlightController implements Initializable {
 	@FXML 
 	Label bookSuccess;
 	
+	@FXML 
+	TextField dateField;
+	
+	
+	
+	
 	
 	@FXML
 	private TableView <FlightData> flightsTable;
 	
 	ObservableList<FlightData> listM;
 	
+	
+	
 	int index = -1;
 	
 	ResultSet rs = null;
 	PreparedStatement ps = null;
-	
-	
 	
 	
 	public void menu() throws Exception{
@@ -99,6 +107,9 @@ public class searchFlightController implements Initializable {
 				return connection;
 
 }
+	
+	
+	
 
 	//@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -111,7 +122,69 @@ public class searchFlightController implements Initializable {
 		
 		listM = DatabaseConnection.getDataFlights();
 		flightsTable.setItems(listM); 
+		
+		FilteredList<FlightData> filteredData = new FilteredList<>(listM, b -> true);
+		
+		fromCityBox.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(listM -> {
 				
+				if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+					return true;
+				}
+				String searchKeyWord = newValue.toLowerCase();
+				
+				if (listM.getFromCity().toLowerCase().indexOf(searchKeyWord) != -1) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			});
+		});
+		toCityBox.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(listM -> {
+				
+				if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+					return true;
+				}
+				String searchKeyWord = newValue.toLowerCase();
+				
+				if (listM.getToCity().toLowerCase().indexOf(searchKeyWord) != -1) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			});
+		});
+		dateField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(listM -> {
+				
+				if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+					return true;
+				}
+				String searchKeyWord = newValue.toLowerCase();
+				
+				if (listM.getFlightDate().toLowerCase().indexOf(searchKeyWord) != -1) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			});
+		});
+		
+		SortedList<FlightData> sortedData = new SortedList <> (filteredData);
+		sortedData.comparatorProperty().bind(flightsTable.comparatorProperty());
+				
+		flightsTable.setItems(sortedData);
+		
+		//ToCity
+		
+		
+
+		
+		
 	}
 	
 	public String getUsername(String username) {
@@ -126,22 +199,31 @@ public class searchFlightController implements Initializable {
 		DatabaseConnection connectNow = new DatabaseConnection();
 		Connection connectionDB = connectNow.getConnection();
 		
-		
-		
+		String user = storeData.username;
+		String sql1 = ("SELECT count(1) FROM " + user + " WHERE flightID = '" + bookBox.getText() + "'" );
 		String sql2 = ("SELECT count(1) FROM [dbo].[Flights] WHERE flightID ='" + bookBox.getText() + "'" );
 		try {
 			
 			PreparedStatement ps = connectionDB.prepareStatement(sql2);
 			ResultSet rs = ps.executeQuery();
 			
-			String user = storeData.username;
+			
 			
 			while (rs.next()) {
 				if (rs.getInt(1) == 1) {
-					bookSuccess.setText("Flight Booked");
 					
-					PreparedStatement ps1 = connectionDB.prepareStatement("INSERT INTO " + user + " SELECT * FROM [dbo].[Flights] WHERE flightID ='" + bookBox.getText() + "'" );
-					ps1.execute();
+					//PreparedStatement ps3 = connectionDB.prepareStatement(sql1);
+					//ResultSet rs3 = ps3.executeQuery();
+					
+					//if (rs3.getInt(1) == 1) {
+						//bookSuccess.setText("You have already booked this flight");
+					//}
+					
+					//else {
+						bookSuccess.setText("Flight Booked");
+						PreparedStatement ps1 = connectionDB.prepareStatement("INSERT INTO " + user + " SELECT * FROM [dbo].[Flights] WHERE flightID ='" + bookBox.getText() + "'" );
+						ps1.execute();
+					//}
 					
 				}
 				
@@ -151,7 +233,7 @@ public class searchFlightController implements Initializable {
 			}
 			
 			
-		}catch (Exception e) {e.printStackTrace();}
+		}catch (Exception e) {bookSuccess.setText("You have already booked this flight");}
 		
 	}
 	
